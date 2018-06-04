@@ -175,11 +175,10 @@ If there are additional files produced by the calculation that need to
 be retrieved (and preserved in the AiiDA repository), they can be added
 as a list as follows::
 
-
         settings_dict = {  
         'additional_retrieve_list': ['aiida.EIG', 'aiida.ORB_INDX'],
         }
 
-This makes the plugin copy such files from the remote folder to the local
+These files are then copied from the remote folder to the local
 repository.
 

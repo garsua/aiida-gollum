@@ -1,4 +1,4 @@
-SIESTA STM workflow
+GOLLUM STM workflow
 ++++++++++++++++++++++
 
 Description
