@@ -49,11 +49,11 @@ calc.description = "Test calculation with the Gollum code. Spin-pol chain"
 #####- Settings ------------------------------------------------
 
 emname = os.path.realpath(os.path.join(os.path.dirname(__file__),
-    "data"))+'/Extended_Molecule'
+    "../data"))+'/Extended_Molecule'
 l1name = os.path.realpath(os.path.join(os.path.dirname(__file__),
-    "data"))+'/Lead_1'
+    "../data"))+'/Lead_1'
 l2name = os.path.realpath(os.path.join(os.path.dirname(__file__),
-    "data"))+'/Lead_2'
+    "../data"))+'/Lead_2'
 settings_dict={'additional_local_copy_list': [emname, l1name, l2name],
                'cmdline': '/share/apps/MATLAB/MCR/MCR_R2017b/v92/'}
 settings = ParameterData(dict=settings_dict)

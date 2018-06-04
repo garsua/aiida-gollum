@@ -40,8 +40,8 @@ class GollumSiestaWorkChain(WorkChain):
         spec.input('structure_le', valid_type=StructureData)
         spec.input('structure_em', valid_type=StructureData)
         spec.input('protocol', valid_type=Str, default=Str('standard'))
-        #spec.input('bandskpoints', valid_type=KpointsData)
-        spec.input('datafolder', valid_type=Str)
+        spec.input('kpoints_le', valid_type=KpointsData)
+        spec.input('kpoints_em', valid_type=KpointsData)
         spec.input('parameters', valid_type=ParameterData)
         spec.outline(
             cls.setup_siesta_inputs,

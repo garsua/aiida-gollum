@@ -10,6 +10,7 @@ from aiida.orm.data.base import Int, Str, Float
 from aiida.orm.data.parameter import ParameterData
 from aiida.orm.data.structure import StructureData
 from aiida.orm.data.array.kpoints import KpointsData
+from aiida_siesta.data.psf import PsfData
 from aiida.work.run import run
 
 from aiida_gollum.workflows.gollumwf import GollumSiestaWorkChain
@@ -74,7 +75,7 @@ def execute(args):
 
     protocol = Str(args.protocol)
     
-    ###### Structures #####################################
+    ###### Siesta structures ##############################
     alat = 1.00 # Angstrom. Not passed to the fdf file
 
     # Leads
@@ -103,18 +104,12 @@ def execute(args):
     else:
         structure_em = sem
 
-    ###### K-ppoints ######################################
+    ###### Siesta k-ppoints ###############################
     kpoints_le = KpointsData()
     kpoints_le.set_kpoints_mesh([1,1,90])
 
     kpoints_em = KpointsData()
     kpoints_em.set_kpoints_mesh([1,1,10])
-
-    ###### Gollum settings ################################
-    # Local directory, Extended Molecule and Lead_*
-    lfold = os.path.realpath(os.path.join(os.path.dirname(__file__),
-        "data"))
-    datafolder=Str(lfold)
 
     ###### Gollum parameters ##############################
     # The "atom" block is definied independently
@@ -139,7 +134,6 @@ def execute(args):
         protocol=protocol,
         kpoints_le=kpoints_le,
         kpoints_em=kpoints_em,
-        datafolder=datafolder,
         parameters=parameters
     )
 
