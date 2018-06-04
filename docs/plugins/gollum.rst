@@ -41,38 +41,38 @@ basic elements of the Gollum input file. The definition of each parameter
 is simpler than in the Gollum original input file (it is not necessary
 to specify tye type of variable and the number of rows and columns)::
 
-    'Mode': 1,
-    'Verbose': 0,
-    'HamiltonianProvider': 'tbm',
-    'Path_EM': './Extended_Molecule',
+        'Mode': 1,
+        'Verbose': 0,
+        'HamiltonianProvider': 'tbm',
+        'Path_EM': './Extended_Molecule',
 
-    'NBlock ERange': """
-     -8.0 8.0 1000 """,
-    'NBlock leadp': """
-     2 2 -1
-     2 2  1 """,
-    'atom': """
-     1 2 1
-     0 0 1
-     2 2 1 """
-
-Complex data structures such as matrices with various rows and columns
+Complex data structures such as blocks with various rows and columns
 are defined by using an appropriate key and Python's multiline string
-constructor. For example::
+constructor. It is necessary to distinguis between numerical blocks
+(**NBlock**)::
 
-    'NBlock leadp': """
-     2 2 -1
-     2 2  1 """,
+        'NBlock leadp': """
+        2 2 -1
+        2 2  1 """,
 
-for numerical blocks and::
+and string blocks (**SBlock**)::
 
-    'SBlock Path_Leads': """
-    1 ./Lead_1
-    2 ./Lead_2""",
+        'SBlock Path_Leads': """
+        1 ./Lead_1
+        2 ./Lead_2""",
 
-for string blocks.
-in the input script (or removed before assigning the dictionary to
-the ParameterData instance).
+The only block that is defined differently is the **atom** block::
+
+        'atom': """
+        1 2  2
+        0 0 10
+        2 2  2 """
+
+The first colum of the **atom** block indicates the lead number or the
+extended molecule (0), the second column the number of principal
+layers in each lead (0 again for the extended molecule) and the third
+column the number of atoms in each lead. From these numbers the plugin
+constructs the typical **atom** block that is written in the input file.
 
 * **pseudo**, class :py:class:`PsfData <aiida_siesta.data.psf.PsfData>`
 
