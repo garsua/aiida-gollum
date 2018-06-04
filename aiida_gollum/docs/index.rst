@@ -12,7 +12,7 @@ The aiida-gollum python package interfaces the GOLLUM transport code
 (http://www.physics.lancs.ac.uk/gollum) with the AiiDA framework
 (http://www.aiida.net). The package contains: plugins for GOLLUM
 itself and basic workflows. It is distributed under the MIT license
-and available from (https://github.com/albgar/aiida_siesta_plugin).
+and available from (https://github.com/garsua/aiida_gollum_plugin).
 
 Acknowledgments:
 ----------------
@@ -37,7 +37,7 @@ Installation
 
    installation
 
-SIESTA plugins
+GOLLUM plugins
 =================
 
 .. toctree::
@@ -45,13 +45,13 @@ SIESTA plugins
 
    plugins/gollum
 
-SIESTA Workflows
+GOLLUM Workflows
 ======================
 
 .. toctree::
    :maxdepth: 4
 
-   workflows/gollum-siesta
+   workflows/gollum-gollum
 ..
    
 

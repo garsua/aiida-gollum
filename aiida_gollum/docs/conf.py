@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# AiiDA Siesta Plugin documentation build configuration file, created by
+# AiiDA Gollum Plugin documentation build configuration file, created by
 # sphinx-quickstart on Mon Jun 26 11:33:57 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -58,9 +58,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'AiiDA Siesta Plugin'
-copyright = u'2017, V.M. Garcia-Suarez, A. Garcia, E. Bosoni, V. Dikan'
-author = u'V.M. Garcia-Suarez, A. Garcia, E. Bosoni, V. Dikan'
+project = u'AiiDA Gollum Plugin'
+copyright = u'2018, V.M. Garcia-Suarez'
+author = u'V.M. Garcia-Suarez, A'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -143,7 +143,7 @@ html_theme = 'default'
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = u'AiiDA Siesta Plugin v0.11'
+# html_title = u'AiiDA Gollum Plugin v0.11'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
@@ -243,7 +243,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'AiiDASiestaPlugindoc'
+htmlhelp_basename = 'AiiDAGollumPlugindoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -269,7 +269,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'AiiDASiestaPlugin.tex', u'AiiDA Siesta Plugin Documentation',
+    (master_doc, 'AiiDAGollumPlugin.tex', u'AiiDA Gollum Plugin Documentation',
      u'V.M. Garcia-Suarez, A. Garcia, E. Bosoni, V. Dikan', 'manual'),
 ]
 
@@ -311,7 +311,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'aiidasiestaplugin', u'AiiDA Siesta Plugin Documentation',
+    (master_doc, 'aiidagollumplugin', u'AiiDA Gollum Plugin Documentation',
      [author], 1)
 ]
 
@@ -326,8 +326,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'AiiDASiestaPlugin', u'AiiDA Siesta Plugin Documentation',
-     author, 'AiiDASiestaPlugin', 'One line description of project.',
+    (master_doc, 'AiiDAGollumPlugin', u'AiiDA Gollum Plugin Documentation',
+     author, 'AiiDAGollumPlugin', 'One line description of project.',
      'Miscellaneous'),
 ]
 
