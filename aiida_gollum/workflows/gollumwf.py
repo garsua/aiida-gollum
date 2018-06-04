@@ -15,7 +15,7 @@ from aiida_siesta.data.psf import get_pseudos_from_structure
 
 from aiida_siesta.calculations.siesta import SiestaCalculation
 from aiida_siesta.workflows.base import SiestaBaseWorkChain
-from aiida_siesta.calculations.gollum import GollumCalculation
+from aiida_gollum.calculations.gollum import GollumCalculation
 
 import os
 

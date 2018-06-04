@@ -38,7 +38,7 @@ try:
 except IndexError:
     codename = 'go-2.0.0@cm135'
 
-code = test_and_get_code(codename, expected_code_type='siesta.gollum')
+code = test_and_get_code(codename, expected_code_type='gollum.gollum')
 
 #####- Set up calculation object -------------------------------
 

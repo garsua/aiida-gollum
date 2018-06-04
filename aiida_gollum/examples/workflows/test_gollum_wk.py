@@ -12,7 +12,7 @@ from aiida.orm.data.structure import StructureData
 from aiida.orm.data.array.kpoints import KpointsData
 from aiida.work.run import run
 
-from aiida_siesta.workflows.gollumwf import GollumSiestaWorkChain
+from aiida_gollum.workflows.gollumwf import GollumSiestaWorkChain
 
 import os
 
