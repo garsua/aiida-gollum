@@ -110,3 +110,4 @@ The transission between electrodes.
 The number of open channels of each electrode.
 
 
+
