@@ -180,4 +180,6 @@ as a list as follows::
         'additional_retrieve_list': ['aiida.EIG', 'aiida.ORB_INDX'],
         }
 
+This makes the plugin copy such files from the remote folder to the local
+repository.
 
