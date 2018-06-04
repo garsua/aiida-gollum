@@ -1,142 +1,112 @@
-GOLLUM STM workflow
+Gollum Siesta workflow
 ++++++++++++++++++++++
 
 Description
 -----------
 
-The **SiestaSTMWorkchain** workflow is functionally very similar
-to the **SiestaBandsWorkchain** workflow, but instead of a band
-structure, the analysis stage produces a file with the local density
-of states (LDOS) in an energy window. The LDOS can be seen as a
-"partial charge density" to which only those wavefunctions with
-eigenvalues in a given energy interval contribute. In the
-Tersoff-Hamann approximation, the LDOS can be used as a proxy for the
-simulation of STM experiments. The 3D LDOS file is then processed by a
-specialized program **plstm** to produce a plot of the LDOS in
-a 2D section at a given height in the unit cell (simulating the height
-of a STM tip), or a simulated topography map by recording the z
-coordinates with a given value of the LDOS.
+The **GollumSiestaWorkchain** workflow produces files with the
+transmission through the system and the number of open channels
+of each electrode from the electronic structure obtained from
+Siesta calculations.
 
-The inputs to the STM workchain include a (possibly
-already relaxed) structure and the protocol specification. The energy
-window for the LDOS and the tip height or the LDOS iso-value can be in
-principle specified by the user if full control is desired (probably
-after evaluation of the results of the **SiestaBandsWorkchain**
-workflow), but for the purposes of a turn-key solution, a range of
-energies around the Fermi Level (or regions near to the HOMO and/or
-LUMO), and a range of heights should automatically be selected by the
-workflow and the results presented to the user for further
-consideration. The workflow executes the **plstm** program via an
-AiiDA plugin, which is also included in the **aiida-siesta**
-distribution. Its parser stage returns an AiiDA ArrayData object whose
-contents can be displayed by standard tools within AiiDA and the wider
-Python ecosystem.
+The inputs to the Gollum workchain include the Siesta code, the Gollum
+code, the structures of the leads and the extended molecule, the
+protocol, the number of kpoints in the leads and the extended molecule
+and some parameters.
 
+The Gollum package can calculate transport properties such as the
+transmission and the number of open channels either from tight-binding
+or ab-initio simulations. In the latter case, it can use the Siesta
+or QuantumEspresso-Wannier90 codes. This workflow presents an
+example of transport calculation with the Siesta code. First, it
+launches a Siesta calculation to simulate the leads, then another
+Siesta calculation for the extended molecule and finally it launches
+a Gollum simulation to calculate the transport properties.
 
-Supported Siesta versions
+Supported Gollum versions
 -------------------------
 
-At least 4.0.1 of the 4.0 series, and 4.1-b3 of the 4.1 series, which
-can be found in the development platform
-(http://launchpad.net/siesta/).
+At least 2.0.0 version of the code, which can be downloaded from the Golum
+webpage (http://www.physics.lancs.ac.uk/gollum/index.php/downloads).
 
 Inputs
 ------
 
-* **code**, a code associated to the Siesta plugin
+* **siesta_code**, a code associated to the Siesta plugin
 
-* **stm_code**, a code associated to the STM (plstm)  plugin
+* **gollu_code**, a code associated to the Gollum plugin
 
-* **structure**, class :py:class:`StructureData
+* **structure_le**, class :py:class:`StructureData
   <aiida.orm.data.structure.StructureData>`
 
-A structure. See the plugin documentation for more details.
+A Siesta structure for the leads.
 
-* **height**, class :py:class:`Float
-  <aiida.orm.data.base.Float>`
+* **structure_em**, class :py:class:`StructureData
+  <aiida.orm.data.structure.StructureData>`
 
-The height of the plane at which the image is desired (in Ang).
+A Siesta structure for the extended molecule.
 
-* **e1**, class :py:class:`Float
-  <aiida.orm.data.base.Float>`
+* **protocol**, class :py:class:`Str <aiida.orm.data.base.Str>`
 
-The lower limit of the energy window for which the LDOS is to be
-computed (in eV).
-
-* **e2**, class :py:class:`Float
-  <aiida.orm.data.base.Float>`
-
-The upper limit of the energy window for which the LDOS is to be
-computed (in eV).
-
-* **protocol**, Str
-
-Either "standard" or "fast" at this point.
-Each has its own set of associated parameters.
+Either "standard" or "fast". Each has its own set of associated
+parameters.
 
 - standard::
-
-             {
-                'kpoints_mesh_offset': [0., 0., 0.],
-                'kpoints_mesh_density': 0.2,
-                'dm_convergence_threshold': 1.0e-4,
-                'forces_convergence_threshold': "0.02 eV/Ang",
-                'min_meshcutoff': 100, # In Rydberg (!)
-                'electronic_temperature': "25.0 meV",
-                'md-type-of-run': "cg",
-                'md-num-cg-steps': 10,
-                'pseudo_familyname': 'lda-ag',
-                'atomic_heuristics': {
-                    'H': { 'cutoff': 100 },
-                    'Si': { 'cutoff': 100 }
-                },
-                'basis': {
-                    'pao-energy-shift': '100 meV',
-                    'pao-basis-size': 'DZP'
+                {
+                    'dm_convergence_threshold': 1.0e-4,
+                    'min_meshcutoff': 150, # In Rydberg (!)
+                    'electronic_temperature': "25.0 meV",
+                    'pseudo_familyname': 'si_ldapsf',
+                    'atomic_heuristics': {
+                        'Au': { 'cutoff': 100 }
+                    },
+                    'basis': {
+                        'pao-energy-shift': '100 meV',
+                        'pao-basis-size': 'DZP'
+                    }
                 }
-	      }
 
 - fast::
-    
-             {
-                'kpoints_mesh_offset': [0., 0., 0.],
-                'kpoints_mesh_density': 0.25,
-                'dm_convergence_threshold': 1.0e-3,
-                'forces_convergence_threshold': "0.2 eV/Ang",
-                'min_meshcutoff': 80, # In Rydberg (!)
-                'electronic_temperature': "25.0 meV",
-                'md-type-of-run': "cg",
-                'md-num-cg-steps': 8,
-                'pseudo_familyname': 'lda-ag',
-                'atomic_heuristics': {
-                    'H': { 'cutoff': 50 },
-                    'Si': { 'cutoff': 50 }
-                },
-                'basis': {
-                    'pao-energy-shift': '100 meV',
-                    'pao-basis-size': 'SZP'
+                {
+                    'dm_convergence_threshold': 1.0e-3,
+                    'min_meshcutoff': 80, # In Rydberg (!)
+                    'electronic_temperature': "25.0 meV",
+                    'pseudo_familyname': 'si_ldapsf',
+                    'atomic_heuristics': {
+                        'Au': { 'cutoff': 50 }
+                    },
+                    'basis': {
+                        'pao-energy-shift': '100 meV',
+                        'pao-basis-size': 'SZ'
+                    }
                 }
-	      }
 
-The *atomic_heuristics* dictionary is intended to encode the
-peculiarities of particular elements. It is work in progress.
+* **kpoints_le**, class :py:class:`KpointsData
+  <aiida.orm.data.array.kpoints.StructureData>`
 
-The *basis* section applies globally for now.
+An array with the number of k-points along each direction in the leads
+
+* **kpoints_em**, class :py:class:`KpointsData
+  <aiida.orm.data.array.kpoints.StructureData>`
+
+An array with the number of k-points along each direction in the
+extended molecule
+
+* **parameters**, class :py:class:`ParameterData
+  <aiida.orm.data.parameter.ParameterData>`
+
+Some parameters for the Gollum simulation (tipically the *leadp* and
+*atom* blocks).
 
 Outputs
 -------
 
-* **output_structure** :py:class:`ParameterData <aiida.orm.data.parameter.ParameterData>` 
+* **transmission** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
 
-The final relaxed structure (if applicable)
+The transission between electrodes.
 
-* **stm_array** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
+* **open_channels** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
 
-A collection of three 2D arrays (`X`, `Y`, `Z`) holding the section or
-topography information. They follow the `meshgrid` convention in
-Numpy. A contour plot can be generated with the `get_stm_image.py`
-script in the repository of examples.
-  
-
+The number of open channels of each electrode.
 
 

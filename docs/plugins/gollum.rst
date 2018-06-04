@@ -92,12 +92,12 @@ A dictionary with metadata, scalar result values, a warnings list, and
 possibly a timing section::
 
         {
-        "Gollum:Version": "gollum-2.0.0",
-        "Tef": 0.003,
-        "Tmax": 0.990
-        "Tmin": "0.000",
-        "total_time": 19.986,
-        "warnings": [ "THE END"]
+            "Gollum:Version": "gollum-2.0.0",
+            "Tef": 0.003,
+            "Tmax": 0.990
+            "Tmin": "0.000",
+            "total_time": 19.986,
+            "warnings": [ "THE END"]
         }
 
 The scalar quantities to include are specified in a global-variable
