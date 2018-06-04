@@ -6,7 +6,7 @@ interface to the `AiiDA system <http://www.aiida.net/>`_.
 
 Documentation can be found in:
 
-http://aiida-gollum-plugin.readthedocs.io
+https://aiida-gollum.readthedocs.io/
 
 (generated from the sources in the `aiida-gollum/docs` directory of
 this distribution).
