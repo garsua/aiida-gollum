@@ -12,7 +12,7 @@ The aiida-gollum python package interfaces the GOLLUM transport code
 (http://www.physics.lancs.ac.uk/gollum) with the AiiDA framework
 (http://www.aiida.net). The package contains: plugins for GOLLUM
 itself and basic workflows. It is distributed under the MIT license
-and available from (https://github.com/garsua/aiida_gollum_plugin).
+and available from (https://github.com/garsua/aiida-gollum/).
 
 Acknowledgments:
 ----------------
