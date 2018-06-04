@@ -12,9 +12,9 @@ from aiida.work.workfunction import workfunction
 from aiida.common.links import LinkType
 
 from aiida_siesta.data.psf import get_pseudos_from_structure
-
 from aiida_siesta.calculations.siesta import SiestaCalculation
 from aiida_siesta.workflows.base import SiestaBaseWorkChain
+
 from aiida_gollum.calculations.gollum import GollumCalculation
 
 import os
@@ -22,7 +22,7 @@ import os
 __copyright__ = u"Copyright (c), 2015, ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE (Theory and Simulation of Materials (THEOS) and National Centre for Computational Design and Discovery of Novel Materials (NCCR MARVEL)), Switzerland and ROBERT BOSCH LLC, USA. All rights reserved."
 __license__ = "MIT license, see LICENSE.txt file"
 __version__ = "0.12.0"
-__contributors__ = "Victor M. Garcia-Suarez, ..."
+__contributors__ = "Victor M. Garcia-Suarez"
                         
 class GollumSiestaWorkChain(WorkChain):
     """
