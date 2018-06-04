@@ -20,10 +20,10 @@
     ],
     "entry_points": {
         "aiida.calculations": [
-            "gollum.gollum = aiida_siesta.calculations.gollum:GollumCalculation"
+            "gollum.gollum = aiida_gollum.calculations.gollum:GollumCalculation"
         ],
         "aiida.parsers": [
-            "gollum.parser = aiida_siesta.parsers.siesta:GollumParser"
+            "gollum.parser = aiida_gollum.parsers.gollum:GollumParser"
         ]
     }
 }

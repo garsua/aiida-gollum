@@ -2,16 +2,16 @@ version: "1"
 
 services:
   aiida:
-    image: vdikan/aiida_siesta_code:0.11.0
+    image: vdikan/aiida_gollum_code:0.12.0
     deploy:
       restart_policy:
         condition: on-failure
     command:
-      - /code/siesta_plugin/dockerscripts/setup_develop.sh
+      - /code/gollum_plugin/dockerscripts/setup_develop.sh
     depends_on:
       - db
     volumes:
-      - ./:/code/siesta_plugin/
+      - ./:/code/gollum_plugin/
       - aiida_dev_logs:/root/.aiida/
       - aiida_dev_repo:/root/.aiida_repo/
 

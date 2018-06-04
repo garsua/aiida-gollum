@@ -42,7 +42,7 @@ else
     verdi computer configure develop
     verdi computer test develop
 
-    # Setup the container's SIESTA code executable as the test code for aiida.
+    # Setup the container's GOLLUM code executable as the test code for aiida.
     # It will be labeled `gollum@develop`:
     cat /code/gollum_plugin/dockerscripts/code-setup.txt | verdi code setup
 
