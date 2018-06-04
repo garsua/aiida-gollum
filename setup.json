@@ -1,8 +1,8 @@
 {
     "version": "0.12.0",
     "name": "aiida_gollum",
-    "url": "https://github.com/albgar/aiida_siesta_plugin",
-    "download_url": "https://github.com/vdikan/aiida_siesta_plugin/archive/0.9.8.tar.gz",
+    "url": "https://github.com/garsua/aiida_gollum_plugin",
+    "download_url": "https://github.com/garsua/aiida_gollum_plugin.git",
     "keywords": ["aiida", "gollum", "transport"],
     "license": "MIT License",
     "author": "Victor M. Garcia-Suarez",
@@ -20,16 +20,10 @@
     ],
     "entry_points": {
         "aiida.calculations": [
-            "siesta.gollum = aiida_siesta.calculations.gollum:GollumCalculation"
+            "gollum.gollum = aiida_siesta.calculations.gollum:GollumCalculation"
         ],
         "aiida.parsers": [
-            "gollum.parser = aiida_siesta.parsers.siesta:SiestaParser"
-        ],
-        "aiida.data": [
-            "siesta.psf = aiida_siesta.data.psf:PsfData"
-        ],
-        "aiida.cmdline.data": [
-            "psf = aiida_siesta.commands.data_psf:psfdata"
+            "gollum.parser = aiida_siesta.parsers.siesta:GollumParser"
         ]
     }
 }
