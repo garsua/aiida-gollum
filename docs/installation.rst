@@ -1,8 +1,9 @@
 Installation
 ++++++++++++
 
-It would be a good idea to create and switch to a new python virtual
-environment before the installation.
+It could be useful to create and switch to a new python virtual
+environment before the installation to avoid conflicts with
+third-party packages.
 
 Install the plugin by executing, from the top level of the plugin
 directory:

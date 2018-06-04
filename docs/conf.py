@@ -270,7 +270,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'AiiDAGollumPlugin.tex', u'AiiDA Gollum Plugin Documentation',
-     u'V.M. Garcia-Suarez, A. Garcia, E. Bosoni, V. Dikan', 'manual'),
+     u'V.M. Garcia-Suarez', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

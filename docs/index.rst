@@ -17,8 +17,8 @@ and available from (https://github.com/garsua/aiida_gollum_plugin).
 Acknowledgments:
 ----------------
 
-The Gollum input plugin, parser and workflow were developed by Victor
-M. Garcia-Suarez.
+The Gollum input plugin, parser, workflow and examples were developed
+by Victor M. Garcia-Suarez.
 
 We acknowledge partial support from the Spanish MINECO (project
 FIS2015- 63918-R) and from the EU Centre of Excellence “MaX –
@@ -51,7 +51,7 @@ GOLLUM Workflows
 .. toctree::
    :maxdepth: 4
 
-   workflows/gollum-gollum
+   workflows/gollum-siesta
 ..
    
 

@@ -1,75 +1,76 @@
-Standard Siesta plugin
+Standard Gollum plugin
 ++++++++++++++++++++++
 
 Description
 -----------
 
-A plugin for Siesta's basic functionality. There remain some details to address.
+A plugin for Gollum's basic functionality. There remain some details to address.
 
-These docs are for version: *aiida-0.9.0--plugin-0.7.0* of the plugin,
-which is compatible with the AiiDA v0.9.0
+These docs are for version: *aiida-0.12.0--plugin-0.1.0* of the plugin.
 
 
-Supported Siesta versions
+Supported Gollum versions
 -------------------------
 
-At least 4.0.1 of the 4.0 series, and 4.1-b3 of the 4.1 series, which
-can be found in the development platform
-(http://launchpad.net/siesta/).
+At least 2.0.0 version of the code, which can be downloaded from the Golum
+webpage (http://www.physics.lancs.ac.uk/gollum/index.php/downloads).
 
 Inputs
 ------
 
-* **structure**, class :py:class:`StructureData <aiida.orm.data.structure.StructureData>`
+* **settings**, class :py:class:`ParameterData <aiida.orm.data.parameter.ParameterData>`
 
-A structure. Siesta employs "species labels" to implement special
-conditions (such as basis set characteristics) for specific atoms
-(e.g., surface atoms might have a richer basis set). This is
-implemented through the 'name' attribute of the Site objects. For example::
+The name of the localfolder that contains the ExtendedMolecule and Lead_*
+input files (in case they are necessary) and the path of the (remote)
+directory where the Matlab MCR is located. For example::
 
-  alat = 15. # angstrom
-  cell = [[alat, 0., 0.,],
-    [0., alat, 0.,],
-    [0., 0., alat,],
-   ]
-
-   # Benzene molecule with a special carbon atom
-   s = StructureData(cell=cell)
-   s.append_atom(position=(0.000,0.000,0.468),symbols=['H'])
-   s.append_atom(position=(0.000,0.000,1.620),symbols=['C'])
-   s.append_atom(position=(0.000,-2.233,1.754),symbols=['H'])
-   s.append_atom(position=(0.000,2.233,1.754),symbols=['H'])
-   s.append_atom(position=(0.000,-1.225,2.327),symbols='C',name="Cred")
-   s.append_atom(position=(0.000,1.225,2.327),symbols=['C'])
-   s.append_atom(position=(0.000,-1.225,3.737),symbols=['C'])
-   s.append_atom(position=(0.000,1.225,3.737),symbols=['C'])
-   s.append_atom(position=(0.000,-2.233,4.311),symbols=['H'])
-   s.append_atom(position=(0.000,2.233,4.311),symbols=['H'])
-   s.append_atom(position=(0.000,0.000,4.442),symbols=['C'])
-   s.append_atom(position=(0.000,0.000,5.604),symbols=['H'])
-
+        emname = os.path.realpath(os.path.join(os.path.dirname(__file__),
+            "../data"))+'/Extended_Molecule'
+        l1name = os.path.realpath(os.path.join(os.path.dirname(__file__),
+            "../data"))+'/Lead_1'
+        l2name = os.path.realpath(os.path.join(os.path.dirname(__file__),
+            "../data"))+'/Lead_2'
+        settings_dict={'additional_local_copy_list': [emname, l1name, l2name],
+                       'cmdline': '/share/apps/MATLAB/MCR/MCR_R2017b/v92/'}
+        settings = ParameterData(dict=settings_dict)
 
 * **parameters**, class :py:class:`ParameterData <aiida.orm.data.parameter.ParameterData>`
 
-A dictionary with scalar fdf variables and blocks, which are the
-basic elements of any Siesta input file. A given Siesta fdf file
-can be cast almost directly into this dictionary form, except that
-some items (for structure data) are blocked. Any units are
-specified for now as part of the value string. Blocks are entered
-by using an appropriate key and Python's multiline string
+A dictionary with scalar and string variables and blocks, which are the
+basic elements of the Gollum input file. The definition of each parameter
+is simpler than in the Gollum original input file (it is not necessary
+to specify tye type of variable and the number of rows and columns)::
+
+    'Mode': 1,
+    'Verbose': 0,
+    'HamiltonianProvider': 'tbm',
+    'Path_EM': './Extended_Molecule',
+
+    'NBlock ERange': """
+     -8.0 8.0 1000 """,
+    'NBlock leadp': """
+     2 2 -1
+     2 2  1 """,
+    'atom': """
+     1 2 1
+     0 0 1
+     2 2 1 """
+
+Complex data structures such as matrices with various rows and columns
+are defined by using an appropriate key and Python's multiline string
 constructor. For example::
 
-    {
-      "mesh-cutoff": "200 Ry",
-      "dm-tolerance": "0.0001",
-	  "%block example-block": """
-	  first line
-	  second line             """,
-    }
+    'NBlock leadp': """
+     2 2 -1
+     2 2  1 """,
 
-Note that Siesta fdf keywords allow '.', '-', or nothing as
-internal separators. AiiDA does not allow the use of '.' in
-nodes to be inserted in the database, so it should not be used
+for numerical blocks and::
+
+    'SBlock Path_Leads': """
+    1 ./Lead_1
+    2 ./Lead_2""",
+
+for string blocks.
 in the input script (or removed before assigning the dictionary to
 the ParameterData instance).
 
