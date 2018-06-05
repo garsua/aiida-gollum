@@ -27,17 +27,19 @@ class GollumCalculation(JobCalculation):
         super(GollumCalculation, self)._init_internal_params()
 
         # Default Gollum output parser provided by AiiDA
-        #self._default_parser = "gollum.parser"
+        self._default_parser = "gollum.parser"
 
         # Default input and output files
         self._DEFAULT_INPUT_FILE = 'input'
         self._DEFAULT_OUTPUT_FILE = 'aiida.out'
+        self._DEFAULT_MESSAGES_FILE = 'aiida.out'
 
         self._GFILES_SUBFOLDER = './'
         self._OUTPUT_SUBFOLDER = './'
         self._PREFIX = 'aiida'
         self._INPUT_FILE_NAME = 'input'
         self._OUTPUT_FILE_NAME = 'aiida.out'
+        self._MESSAGES_FILE_NAME = 'aiida.out'
 
         # in restarts, it will copy from the parent the following
         self._restart_copy_from = os.path.join(self._OUTPUT_SUBFOLDER, 'partial.mat')
@@ -213,6 +215,7 @@ class GollumCalculation(JobCalculation):
 
         calcinfo.stdin_name = self._INPUT_FILE_NAME
         calcinfo.stdout_name = self._OUTPUT_FILE_NAME
+        calcinfo.messages_name = self._MESSAGES_FILE_NAME
 
         # = Code information object ==============================
 
@@ -221,6 +224,7 @@ class GollumCalculation(JobCalculation):
         codeinfo.cmdline_params = [cmdline_params]
         #codeinfo.stdin_name = self._INPUT_FILE_NAME
         codeinfo.stdout_name = self._OUTPUT_FILE_NAME
+        codeinfo.messages_name = self._MESSAGES_FILE_NAME
         codeinfo.code_uuid = code.uuid
         calcinfo.codes_info = [codeinfo]
 
@@ -229,6 +233,7 @@ class GollumCalculation(JobCalculation):
         # Retrieve by default: the output file
         calcinfo.retrieve_list = []
         calcinfo.retrieve_list.append(self._OUTPUT_FILE_NAME)
+        calcinfo.retrieve_list.append(self._MESSAGES_FILE_NAME)
 
         # Any other files specified in the settings dictionary
         settings_retrieve_list = settings_dict.pop('ADDITIONAL_RETRIEVE_LIST',
