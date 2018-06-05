@@ -72,7 +72,7 @@ The first colum of the **atom** block indicates the lead number or the
 extended molecule (0), the second column the number of principal
 layers in each lead (0 again for the extended molecule) and the third
 column the number of atoms in each lead. From these numbers the plugin
-constructs the typical **atom** block that is written in the input file.
+constructs and writes in the input file the typical **atom** block.
 
 Outputs
 -------

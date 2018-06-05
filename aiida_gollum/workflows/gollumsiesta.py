@@ -82,7 +82,9 @@ class GollumSiestaWorkChain(WorkChain):
 
     def setup_protocol(self):
         if self.inputs.protocol == 'standard':
+
             self.report('running the workchain in the "{}" protocol'.format(self.inputs.protocol.value))
+
             self.ctx.protocol = {
                 'dm_convergence_threshold': 1.0e-4,
                 'min_meshcutoff': 150, # In Rydberg (!)
@@ -98,7 +100,9 @@ class GollumSiestaWorkChain(WorkChain):
                           
             }
         elif self.inputs.protocol == 'fast':
+
             self.report('running the workchain in the "{}" protocol'.format(self.inputs.protocol.value))
+
             self.ctx.protocol = {
                 'dm_convergence_threshold': 1.0e-3,
                 'min_meshcutoff': 80, # In Rydberg (!)
@@ -120,8 +124,9 @@ class GollumSiestaWorkChain(WorkChain):
         """
         Very simple. Avoid seekpath for now
         """
-        self.report('Running setup_structures')
 
+        self.report('Running setup_structures')
+        
         self.ctx.structure_le = self.inputs.structure_le
         self.ctx.structure_em = self.inputs.structure_em
 
@@ -130,7 +135,9 @@ class GollumSiestaWorkChain(WorkChain):
         Based on the given input structure, get the 
         pseudo potentials for the different elements in the structure
         """
+
         self.report('Running setup_pseudo_potentials')
+
         structure = self.ctx.structure_em
         pseudo_familyname = self.ctx.protocol['pseudo_familyname']
         self.ctx.siesta_inputs['pseudos'] = get_pseudos_from_structure(structure, pseudo_familyname)
@@ -142,6 +149,7 @@ class GollumSiestaWorkChain(WorkChain):
         """
 
         self.report('Running setup_siesta_parameters')
+
         structure = self.ctx.structure_em
         meshcutoff = 0.0
 
@@ -175,15 +183,18 @@ class GollumSiestaWorkChain(WorkChain):
         """
         Setup the basis dictionary.
         """
+
         self.report('Running setup_basis')
+
         self.ctx.siesta_inputs['basis'] = self.ctx.protocol['basis']
         
     def setup_kpoints(self):
         """
         Define the k-point mesh for the Siesta calculations
         """
+
         self.report('Running setup_kpoints')
-        
+
         self.ctx.kpoints_le = self.inputs.kpoints_le
         self.ctx.kpoints_em = self.inputs.kpoints_em
 
@@ -192,11 +203,10 @@ class GollumSiestaWorkChain(WorkChain):
         Run the SiestaBaseWorkChain to calculate the extended molecule
         structure
         """
+
         self.report('Running run_leads')
 
         siesta_inputs = dict(self.ctx.siesta_inputs)
-
-        # Get the remote folder of the last calculation in the previous workchain
 
         rle_inputs = {}
         rle_inputs['code'] = siesta_inputs['siesta_code']
@@ -210,9 +220,8 @@ class GollumSiestaWorkChain(WorkChain):
         rle_inputs['max_iterations'] = Int(20)
         rle_inputs['options'] = siesta_inputs['options']
         
-        #process = SiestaCalculation.process()
-        #running = submit(process, **rle_inputs)
         running = submit(SiestaBaseWorkChain, **rle_inputs)
+
         self.report('launched SiestaBaseWorkChain<{}> in run-Siesta mode'.format(running.pid))
         
         return ToContext(workchain_leads=running)
@@ -222,11 +231,10 @@ class GollumSiestaWorkChain(WorkChain):
         Run the SiestaBaseWorkChain to calculate the extended molecule
         structure
         """
+
         self.report('Running run_extmol')
 
         siesta_inputs = dict(self.ctx.siesta_inputs)
-
-        # Get the remote folder of the last calculation in the previous workchain
 
         rem_inputs = {}
         rem_inputs['code'] = siesta_inputs['siesta_code']
@@ -240,9 +248,8 @@ class GollumSiestaWorkChain(WorkChain):
         rem_inputs['max_iterations'] = Int(20)
         rem_inputs['options'] = siesta_inputs['options']
         
-        #process = SiestaCalculation.process()
-        #running = submit(process, **rem_inputs)
         running = submit(SiestaBaseWorkChain, **rem_inputs)
+
         self.report('launched SiestaBaseWorkChain<{}> in run-Siesta mode'.format(running.pid))
         
         return ToContext(workchain_extmol=running)
@@ -294,12 +301,12 @@ class GollumSiestaWorkChain(WorkChain):
         """
         Run a GollumCalculation with the calculation parent folder
         """
+
         self.report('Running Gollum calculation')
 
         ginputs = dict(self.ctx.gollum_inputs)
 
-        # Get the remote folder of the last calculation in the previous
-        # workchain
+        # Get the remote folders of previous calculations
         remote_folder_le = self.ctx.workchain_leads.get_outputs_dict()['remote_folder']
         lepath = remote_folder_le.get_remote_path()
         lep = "\n 1 " + lepath + "/aiida.out" + "\n 2 " + lepath + "/aiida.out"
