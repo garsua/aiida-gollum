@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 #
-# An example of Workchain to perform an transport simulation
+# An example of Workchain to perform a transport simulation from
+# the electronic structure (leads and extende molecule) calculated
+# with Siesta
 #
 import argparse
 from aiida.common.exceptions import NotExistent
