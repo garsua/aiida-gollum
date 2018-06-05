@@ -58,18 +58,12 @@ parameters.
 - standard::
 
              {
-                'kpoints_mesh_offset': [0., 0., 0.],
-                'kpoints_mesh_density': 0.2,
                 'dm_convergence_threshold': 1.0e-4,
-                'forces_convergence_threshold': "0.02 eV/Ang",
-                'min_meshcutoff': 100, # In Rydberg (!)
+                'min_meshcutoff': 150, # In Rydberg (!)
                 'electronic_temperature': "25.0 meV",
-                'md-type-of-run': "cg",
-                'md-num-cg-steps': 10,
-                'pseudo_familyname': 'lda-ag',
+                'pseudo_familyname': 'si_ldapsf',
                 'atomic_heuristics': {
-                    'H': { 'cutoff': 100 },
-                    'Si': { 'cutoff': 100 }
+                    'Au': { 'cutoff': 100 }
                 },
                 'basis': {
                     'pao-energy-shift': '100 meV',
@@ -80,22 +74,16 @@ parameters.
 - fast::
     
              {
-                'kpoints_mesh_offset': [0., 0., 0.],
-                'kpoints_mesh_density': 0.25,
                 'dm_convergence_threshold': 1.0e-3,
-                'forces_convergence_threshold': "0.2 eV/Ang",
                 'min_meshcutoff': 80, # In Rydberg (!)
                 'electronic_temperature': "25.0 meV",
-                'md-type-of-run': "cg",
-                'md-num-cg-steps': 8,
-                'pseudo_familyname': 'lda-ag',
+                'pseudo_familyname': 'si_ldapsf',
                 'atomic_heuristics': {
-                    'H': { 'cutoff': 50 },
-                    'Si': { 'cutoff': 50 }
+                    'Au': { 'cutoff': 50 }
                 },
                 'basis': {
                     'pao-energy-shift': '100 meV',
-                    'pao-basis-size': 'SZP'
+                    'pao-basis-size': 'SZ'
                 }
 	      }
 
