@@ -5,9 +5,8 @@ Description
 -----------
 
 The **GollumSiestaWorkchain** workflow produces files with the
-transmission through the system and the number of open channels
-of each electrode from the electronic structure obtained from
-Siesta calculations.
+transmission and the number of open channels from the electronic
+structure calculated with Siesta.
 
 The inputs to the Gollum workchain include the Siesta code, the Gollum
 code, the structures of the leads and the extended molecule, the
