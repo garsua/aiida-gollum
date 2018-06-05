@@ -4,10 +4,13 @@ Standard Gollum plugin
 Description
 -----------
 
-A plugin for Gollum's basic functionality. There remain some details to address.
+The AiiDA Gollum Plugin is an AiiDA extension, writen in Python, which
+allows to run in a user friendly way highly automated transport simulations
+with the Gollum code. It has two main parts, the input and the output, which
+facilitate the desing, analysis and postprocessing of transport calculations
+within the AiiDA famework.
 
 These docs are for version: *aiida-0.12.0--plugin-0.1.0* of the plugin.
-
 
 Supported Gollum versions
 -------------------------
