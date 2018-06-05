@@ -32,9 +32,13 @@ webpage (http://www.physics.lancs.ac.uk/gollum/index.php/downloads).
 Inputs
 ------
 
-* **siesta_code**, a code associated to the Siesta plugin
+* **siesta_code**
+  
+A code associated to the Siesta plugin
 
-* **gollu_code**, a code associated to the Gollum plugin
+* **gollum_code**
+
+A code associated to the Gollum plugin
 
 * **structure_le**, class :py:class:`StructureData
   <aiida.orm.data.structure.StructureData>`
@@ -52,34 +56,34 @@ Either "standard" or "fast". Each has its own set of associated
 parameters.
 
 - standard::
-                {
-                    'dm_convergence_threshold': 1.0e-4,
-                    'min_meshcutoff': 150, # In Rydberg (!)
-                    'electronic_temperature': "25.0 meV",
-                    'pseudo_familyname': 'si_ldapsf',
-                    'atomic_heuristics': {
-                        'Au': { 'cutoff': 100 }
-                    },
-                    'basis': {
-                        'pao-energy-shift': '100 meV',
-                        'pao-basis-size': 'DZP'
-                    }
+             {
+                'dm_convergence_threshold': 1.0e-4,
+                'min_meshcutoff': 150, # In Rydberg (!)
+                'electronic_temperature': "25.0 meV",
+                'pseudo_familyname': 'si_ldapsf',
+                'atomic_heuristics': {
+                    'Au': { 'cutoff': 100 }
+                },
+                'basis': {
+                    'pao-energy-shift': '100 meV',
+                    'pao-basis-size': 'DZP'
                 }
+             }
 
 - fast::
-                {
-                    'dm_convergence_threshold': 1.0e-3,
-                    'min_meshcutoff': 80, # In Rydberg (!)
-                    'electronic_temperature': "25.0 meV",
-                    'pseudo_familyname': 'si_ldapsf',
-                    'atomic_heuristics': {
-                        'Au': { 'cutoff': 50 }
-                    },
-                    'basis': {
-                        'pao-energy-shift': '100 meV',
-                        'pao-basis-size': 'SZ'
-                    }
+             {
+                'dm_convergence_threshold': 1.0e-3,
+                'min_meshcutoff': 80, # In Rydberg (!)
+                'electronic_temperature': "25.0 meV",
+                'pseudo_familyname': 'si_ldapsf',
+                'atomic_heuristics': {
+                    'Au': { 'cutoff': 50 }
+                },
+                'basis': {
+                    'pao-energy-shift': '100 meV',
+                    'pao-basis-size': 'SZ'
                 }
+             }
 
 * **kpoints_le**, class :py:class:`KpointsData
   <aiida.orm.data.array.kpoints.StructureData>`
