@@ -95,7 +95,7 @@ A dictionary with metadata, scalar result values, a warnings list, and
 possibly a timing section::
 
         {
-           "gollum:Version": "Version 2.0 GAMMA (Feb. 2018)",
+           "gollum_version": "Version 2.0 GAMMA (Feb. 2018)",
            "Tef": 0.003,
            "Tmax": 0.990,
            "Tmin": "0.000",

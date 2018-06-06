@@ -33,6 +33,12 @@ class GollumCalculation(JobCalculation):
         self._DEFAULT_INPUT_FILE = 'input'
         self._DEFAULT_OUTPUT_FILE = 'aiida.out'
         self._DEFAULT_MESSAGES_FILE = 'aiida.out'
+        self._DEFAULT_OC_FILE = 'Open_channels_per_spin1.gdat'
+        self._DEFAULT_OU_FILE = 'Open_channels_up1.gdat'
+        self._DEFAULT_OD_FILE = 'Open_channels_down1.gdat'
+        self._DEFAULT_TT_FILE = 'T_per_spin2.gdat'
+        self._DEFAULT_TU_FILE = 'T_up2.gdat'
+        self._DEFAULT_TD_FILE = 'T_down2.gdat'
 
         self._GFILES_SUBFOLDER = './'
         self._OUTPUT_SUBFOLDER = './'
@@ -40,6 +46,12 @@ class GollumCalculation(JobCalculation):
         self._INPUT_FILE_NAME = 'input'
         self._OUTPUT_FILE_NAME = 'aiida.out'
         self._MESSAGES_FILE_NAME = 'aiida.out'
+        self._OC_FILE_NAME = 'Open_channels_per_spin1.gdat'
+        self._OU_FILE_NAME = 'Open_channels_up1.gdat'
+        self._OD_FILE_NAME = 'Open_channels_down1.gdat'
+        self._TT_FILE_NAME = 'T_per_spin2.gdat'
+        self._TU_FILE_NAME = 'T_up2.gdat'
+        self._TD_FILE_NAME = 'T_down2.gdat'
 
         # in restarts, it will copy from the parent the following
         self._restart_copy_from = os.path.join(self._OUTPUT_SUBFOLDER, 'partial.mat')
@@ -216,6 +228,12 @@ class GollumCalculation(JobCalculation):
         calcinfo.stdin_name = self._INPUT_FILE_NAME
         calcinfo.stdout_name = self._OUTPUT_FILE_NAME
         calcinfo.messages_name = self._MESSAGES_FILE_NAME
+        calcinfo.tt_name = self._OC_FILE_NAME
+        calcinfo.tu_name = self._OU_FILE_NAME
+        calcinfo.td_name = self._OD_FILE_NAME
+        calcinfo.tt_name = self._TT_FILE_NAME
+        calcinfo.tu_name = self._TU_FILE_NAME
+        calcinfo.td_name = self._TD_FILE_NAME
 
         # = Code information object ==============================
 
@@ -225,6 +243,12 @@ class GollumCalculation(JobCalculation):
         #codeinfo.stdin_name = self._INPUT_FILE_NAME
         codeinfo.stdout_name = self._OUTPUT_FILE_NAME
         codeinfo.messages_name = self._MESSAGES_FILE_NAME
+        codeinfo.tt_name = self._OC_FILE_NAME
+        codeinfo.tu_name = self._OU_FILE_NAME
+        codeinfo.td_name = self._OD_FILE_NAME
+        codeinfo.tt_name = self._TT_FILE_NAME
+        codeinfo.tu_name = self._TU_FILE_NAME
+        codeinfo.td_name = self._TD_FILE_NAME
         codeinfo.code_uuid = code.uuid
         calcinfo.codes_info = [codeinfo]
 
@@ -234,6 +258,12 @@ class GollumCalculation(JobCalculation):
         calcinfo.retrieve_list = []
         calcinfo.retrieve_list.append(self._OUTPUT_FILE_NAME)
         calcinfo.retrieve_list.append(self._MESSAGES_FILE_NAME)
+        calcinfo.retrieve_list.append(self._OC_FILE_NAME)
+        calcinfo.retrieve_list.append(self._OU_FILE_NAME)
+        calcinfo.retrieve_list.append(self._OD_FILE_NAME)
+        calcinfo.retrieve_list.append(self._TT_FILE_NAME)
+        calcinfo.retrieve_list.append(self._TU_FILE_NAME)
+        calcinfo.retrieve_list.append(self._TD_FILE_NAME)
 
         # Any other files specified in the settings dictionary
         settings_retrieve_list = settings_dict.pop('ADDITIONAL_RETRIEVE_LIST',

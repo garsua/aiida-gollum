@@ -3,6 +3,23 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+#######################################
+`AiiDA`_ plugin for `GOLLUM`_
+#######################################
+
+.. figure:: images/AiiDA_transparent_logo.png
+    :width: 250px
+    :align: center
+    :height: 100px
+.. figure:: images/gollum_logo.png
+    :width: 233px
+    :align: center
+    :height: 100px
+
+.. _AiiDA: http://www.aiida.net
+.. _GOLLUM: http://www.physics.lancs.ac.uk/gollum
+
+
 Welcome to the AiiDA-Gollum documentation!
 ++++++++++++++++++++++++++++++++++++++++++++
 

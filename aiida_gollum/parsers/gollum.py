@@ -12,10 +12,6 @@ __contributors__ = "Victor M. Garcia-Suarez"
 # Based on the 0.9.0 version of the STM workflow developed by Alberto
 # Garcia for the aiida_siesta plugin
 
-standard_output_list = [ 'siesta:FreeE', 'siesta:E_KS',
-                         'siesta:Ebs', 'siesta:E_Fermi',
-                         'siesta:stot']  ## leave svec for later
-
 class GollumOutputParsingError(OutputParsingError):
      pass
 
@@ -35,7 +31,7 @@ class GollumParser(Parser):
         if not isinstance(calc,GollumCalculation):
             raise GollumOutputParsingError("Input calc must be a GollumCalculation")
 
-    def _get_output_nodes(self, output_path, messages_path):
+    def _get_output_nodes(self, output_path, messages_path, oc_path, ou_path, od_path, tt_path, tu_path, td_path):
         """
         Extracts output nodes from the standard output and standard error
         files. (And XML and JSON files)
@@ -63,6 +59,27 @@ class GollumParser(Parser):
         output_dict = self.get_output_from_file(output_path)
         result_dict.update(output_dict)
         
+        # Add open channels and transmission data
+        if successful:
+            if oc_path is not None:
+                oc_dict = self.get_ndata_from_file(oc_path,'oc')
+                result_dict.update(oc_dict)
+            if ou_path is not None:
+                ou_dict = self.get_ndata_from_file(ou_path,'ou')
+                result_dict.update(ou_dict)
+            if od_path is not None:
+                od_dict = self.get_ndata_from_file(od_path,'od')
+                result_dict.update(od_dict)
+            if tt_path is not None:
+                tt_dict = self.get_ndata_from_file(tt_path,'tt')
+                result_dict.update(tt_dict)
+            if tu_path is not None:
+                tu_dict = self.get_ndata_from_file(tu_path,'tu')
+                result_dict.update(tu_dict)
+            if td_path is not None:
+                td_dict = self.get_ndata_from_file(td_path,'td')
+                result_dict.update(td_dict)
+
         # Add parser info dictionary
         parser_info = {}
         parser_version = 'aiida-0.1.0--gollum-2.0.0'
@@ -89,19 +106,26 @@ class GollumParser(Parser):
 
         output_path = None
         messages_path  = None
+        oc_path = None
+        ou_path = None
+        od_path = None
+        tt_path = None
+        tu_path = None
+        td_path = None
         try:
-            output_path, messages_path = self._fetch_output_files(retrieved)
+            output_path, messages_path, oc_path, ou_path, od_path, tt_path, tu_path, td_path =\
+                self._fetch_output_files(retrieved)
         except InvalidOperation:
             raise
         except IOError as e:
             self.logger.error(e.message)
             return False, ()
 
-        if output_path is None and messages_path is None:
+        if output_path is None and messages_path is None and oc_path is None and ou_path is None and od_path is None and tt_path is None and tu_path is None and td_path is None:
             self.logger.error("No output files found")
             return False, ()
 
-        successful, out_nodes = self._get_output_nodes(output_path, messages_path)
+        successful, out_nodes = self._get_output_nodes(output_path, messages_path, oc_path, ou_path, od_path, tt_path, tu_path, td_path)
         
         return successful, out_nodes
 
@@ -127,6 +151,12 @@ class GollumParser(Parser):
 
         output_path = None
         messages_path  = None
+        oc_path = None
+        ou_path = None
+        od_path = None
+        tt_path = None
+        tu_path = None
+        td_path = None
 
         if self._calc._DEFAULT_OUTPUT_FILE in list_of_files:
             output_path = os.path.join( out_folder.get_abs_path('.'),
@@ -134,100 +164,155 @@ class GollumParser(Parser):
         if self._calc._DEFAULT_MESSAGES_FILE in list_of_files:
             messages_path  = os.path.join( out_folder.get_abs_path('.'),
                                         self._calc._DEFAULT_MESSAGES_FILE )
+        if self._calc._DEFAULT_OC_FILE in list_of_files:
+            oc_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_OC_FILE )
+        if self._calc._DEFAULT_OU_FILE in list_of_files:
+            ou_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_OU_FILE )
+        if self._calc._DEFAULT_OD_FILE in list_of_files:
+            od_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_OD_FILE )
+        if self._calc._DEFAULT_TT_FILE in list_of_files:
+            tt_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_TT_FILE )
+        if self._calc._DEFAULT_TU_FILE in list_of_files:
+            tu_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_TU_FILE )
+        if self._calc._DEFAULT_TD_FILE in list_of_files:
+            td_path  = os.path.join( out_folder.get_abs_path('.'),
+                                        self._calc._DEFAULT_TD_FILE )
 
-        print output_path, messages_path
-        return output_path, messages_path
-
-    def get_output_from_file(self,output_path):
-     """
-     Generates a list of variables from the 'aiida.out' file.
-
-     :param output_path: 
-
-     Returns a list of strings.
-     """
-     f=open(output_path)
-     lines=f.read().split('\n')   # There will be a final '' element
-
-     import re
-
-     # Find data
-     output_dict = {}
-     for line in lines:
-          if re.match('^.*Version.*$',line):
-               output_dict['gollum:version'] = line.strip()
-          if re.match('^.*LIBRARY.*$',line):
-               output_dict['ld_library_path'] = line.strip()
-          if re.match('^.*Start of run.*$',line):
-               output_dict['start_of_run'] = ' '.join(line.split()[-2:])
-          if re.match('^.*Elapsed time.*$',line):
-               output_dict['total_time'] = line.split()[-2]
-     
-     return output_dict
+        return output_path, messages_path, oc_path, ou_path, od_path, tt_path, tu_path, td_path
 
     def get_errors_from_file(self,messages_path):
-     """
-     Generates a list of errors from the 'aiida.out' file.
+        """
+        Generates a list of errors from the 'aiida.out' file.
 
-     :param messages_path: 
+        :param messages_path: 
 
-     Returns a boolean indicating success (True) or failure (False)
-     and a list of strings.
-     """
-     f=open(messages_path)
-     lines=f.read().split('\n')   # There will be a final '' element
+        Returns a boolean indicating success (True) or failure (False)
+        and a list of strings.
+        """
+        f=open(messages_path)
+        lines=f.read().split('\n')   # There will be a final '' element
 
-     import re
+        import re
      
-     # Search for 'Error' messages, log them, and return immediately
-     lineerror = []
-     there_are_fatals = False 
-     for line in lines:
-         if re.match('^.*Error.*$',line):
-             self.logger.error(line)
-             lineerror.append(line)
-             there_are_fatals = True
+        # Search for 'Error' messages, log them, and return immediately
+        lineerror = []
+        there_are_fatals = False 
+        for line in lines:
+            if re.match('^.*Error.*$',line):
+                self.logger.error(line)
+                lineerror.append(line)
+                there_are_fatals = True
                
-     if there_are_fatals:
-         lineeror.append(lines[-1])
-         return False, lineerror
+        if there_are_fatals:
+            lineeror.append(lines[-1])
+            return False, lineerror
 
-     # Make sure that the job did finish (and was not interrupted
-     # externally)
+        # Make sure that the job did finish (and was not interrupted
+        # externally)
 
-     normal_end = False
-     for line in lines:
-          if re.match('^.*THE END.*$',line):
-               normal_end = True
+        normal_end = False
+        for line in lines:
+            if re.match('^.*THE END.*$',line):
+                normal_end = True
                
-     if normal_end == False:
-          lines[-1] = 'FATAL: ABNORMAL_EXTERNAL_TERMINATION'
-          self.logger.error("Calculation interrupted externally")
-          return False, lines[-2:] # Return also last line of the file
+        if normal_end == False:
+            lines[-1] = 'FATAL: ABNORMAL_EXTERNAL_TERMINATION'
+            self.logger.error("Calculation interrupted externally")
+            return False, lines[-2:] # Return also last line of the file
 
-     return True, lineerror
+        return True, lineerror
 
     def get_warnings_from_file(self,messages_path):
-     """
-     Generates a list of errors from the 'aiida.out' file.
+        """
+        Generates a list of warnings from the 'aiida.out' file.
 
-     :param messages_path: 
+        :param messages_path: 
 
-     Returns a boolean indicating success (True) or failure (False)
-     and a list of strings.
-     """
-     f=open(messages_path)
-     lines=f.read().split('\n')   # There will be a final '' element
+        Returns a list of strings.
+        """
+        f=open(messages_path)
+        lines=f.read().split('\n')   # There will be a final '' element
 
-     import re
+        import re
 
-     # Find warnings
-     linewarning = []
-     for line in lines:
-          if re.match('^.*in =/.*$',line):
-               linewarning.append(line)
+        # Find warnings
+        linewarning = []
+        for line in lines:
+              if re.match('^.*in =/.*$',line):
+                   linewarning.append(line)
      
-     return linewarning
+        return linewarning
+
+    def get_output_from_file(self,output_path):
+        """
+        Generates a list of variables from the 'aiida.out' file.
+
+        :param output_path: 
+
+        Returns a list of strings.
+        """
+        f=open(output_path)
+        lines=f.read().split('\n')   # There will be a final '' element
+
+        import re
+
+        # Find data
+        output_dict = {}
+        for line in lines:
+            if re.match('^.*Version.*$',line):
+                output_dict['gollum_version'] = line.strip()
+            if re.match('^.*LIBRARY.*$',line):
+                output_dict['ld_library_path'] = line.strip()
+            if re.match('^.*Start of run.*$',line):
+                output_dict['start_of_run'] = ' '.join(line.split()[-2:])
+            if re.match('^.*Elapsed time.*$',line):
+                output_dict['total_time'] = float(line.split()[-2])
+     
+        return output_dict
+
+    def get_ndata_from_file(self,nd_path,nd_prefix):
+        """
+        Generates a list of variables from the 'aiida.out' file.
+
+        :param nd_path: 
+
+        Returns a list of strings.
+        """
+        f=open(nd_path)
+        lines=f.readlines()
+
+        import re
+
+        # Find data
+        nd_dict = {}
+        linenew=[]
+        not_ef = True
+        cef = 'unknown'
+        for line in lines:
+            try:
+                c1 = float(line.split()[0])
+                c2 = float(line.split()[1])
+                linenew.append(c2)
+                if c1 > 0 and not_ef:
+                    cef=c3
+                    not_ef=False
+                c3=c2 
+            except:
+                pass
+
+        nd_ef = nd_prefix + '_ef'
+        nd_dict[nd_ef] = cef
+        nd_M = nd_prefix + '_M'
+        nd_dict[nd_M] = max(linenew)
+        nd_m = nd_prefix + '_m'
+        nd_dict[nd_m] = min(linenew)
+    
+        return nd_dict
 
     def get_linkname_outstructure(self):
         """
