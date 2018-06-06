@@ -64,21 +64,39 @@ class GollumParser(Parser):
             if oc_path is not None:
                 oc_dict = self.get_ndata_from_file(oc_path,'oc')
                 result_dict.update(oc_dict)
+                oc_data = self.get_transport_data(oc_path)
+                if oc_data is not None:
+                    result_list.append(('oc_array',oc_data))
             if ou_path is not None:
                 ou_dict = self.get_ndata_from_file(ou_path,'ou')
                 result_dict.update(ou_dict)
+                ou_data = self.get_transport_data(ou_path)
+                if ou_data is not None:
+                    result_list.append(('ou_array',ou_data))
             if od_path is not None:
                 od_dict = self.get_ndata_from_file(od_path,'od')
                 result_dict.update(od_dict)
+                od_data = self.get_transport_data(od_path)
+                if od_data is not None:
+                    result_list.append(('od_array',od_data))
             if tt_path is not None:
                 tt_dict = self.get_ndata_from_file(tt_path,'tt')
                 result_dict.update(tt_dict)
+                tt_data = self.get_transport_data(tt_path)
+                if tt_data is not None:
+                    result_list.append(('tt_array',tt_data))
             if tu_path is not None:
                 tu_dict = self.get_ndata_from_file(tu_path,'tu')
                 result_dict.update(tu_dict)
+                tu_data = self.get_transport_data(tu_path)
+                if tu_data is not None:
+                    result_list.append(('tu_array',tu_data))
             if td_path is not None:
                 td_dict = self.get_ndata_from_file(td_path,'td')
                 result_dict.update(td_dict)
+                td_data = self.get_transport_data(td_path)
+                if td_data is not None:
+                    result_list.append(('td_array',td_data))
 
         # Add parser info dictionary
         parser_info = {}
@@ -194,8 +212,8 @@ class GollumParser(Parser):
         Returns a boolean indicating success (True) or failure (False)
         and a list of strings.
         """
-        f=open(messages_path)
-        lines=f.read().split('\n')   # There will be a final '' element
+        f = open(messages_path)
+        lines = f.read().split('\n')   # There will be a final '' element
 
         import re
      
@@ -235,8 +253,8 @@ class GollumParser(Parser):
 
         Returns a list of strings.
         """
-        f=open(messages_path)
-        lines=f.read().split('\n')   # There will be a final '' element
+        f = open(messages_path)
+        lines = f.read().split('\n')   # There will be a final '' element
 
         import re
 
@@ -256,8 +274,8 @@ class GollumParser(Parser):
 
         Returns a list of strings.
         """
-        f=open(output_path)
-        lines=f.read().split('\n')   # There will be a final '' element
+        f = open(output_path)
+        lines = f.read().split('\n')   # There will be a final '' element
 
         import re
 
@@ -270,6 +288,8 @@ class GollumParser(Parser):
                 output_dict['ld_library_path'] = line.split()[2]
             if re.match('^.*Start of run.*$',line):
                 output_dict['start_of_run'] = ' '.join(line.split()[-2:])
+            if re.match('^.*End of run.*$',line):
+                output_dict['end_of_run'] = ' '.join(line.split()[-2:])
             if re.match('^.*Elapsed time.*$',line):
                 output_dict['total_time'] = float(line.split()[-2])
      
@@ -283,14 +303,14 @@ class GollumParser(Parser):
 
         Returns a list of strings.
         """
-        f=open(nd_path)
-        lines=f.readlines()
+        f = open(nd_path)
+        lines = f.readlines()
 
         import re
 
         # Find data
         nd_dict = {}
-        linenew=[]
+        linenew = []
         not_ef = True
         cef = 'unknown'
         for line in lines:
@@ -314,32 +334,41 @@ class GollumParser(Parser):
     
         return nd_dict
 
-    def get_linkname_outstructure(self):
-        """
-        Returns the name of the link to the output_structure
-        Node exists if positions or cell changed.
-        """
-        return 'output_structure'
-
     def get_linkname_outarray(self):
         """                                                                     
         Returns the name of the link to the output_array                        
-        In Siesta, Node exists to hold the final forces and stress,
-        pending the implementation of trajectory data.
         """
         return 'output_array'
 
-    def get_linkname_bandsarray(self):
-        """                                                                     
-        Returns the name of the link to the bands_array                        
-        In Siesta, Node exists to hold the bands,
-        pending the implementation of trajectory data.
+    def get_transport_data(self,nd_path):
         """
-        return 'bands_array'
+        Parses the open channels and transmission
+        files to get an ArrayData object that can
+        be stored in the database
+        """
 
-    def get_linkname_bandsparameters(self):
-        """
-        Returns the name of the link to the bands_path.
-        X-axis data for bands. Maybe should use ArrayData (db-integrity?).
-        """
-        return 'bands_parameters'
+        import numpy as np
+        from aiida.orm.data.array import ArrayData
+
+        f = open(nd_path)
+        lines = f.readlines()
+
+        x = []
+        y = []
+        for line in lines:
+            try:
+                c1 = float(line.split()[0])
+                x.append(c1)
+                c2 = float(line.split()[1])
+                y.append(c2)
+            except:
+                pass
+
+        X = np.array(x,dtype=float)
+        Y = np.array(y,dtype=float)
+
+        arraydata = ArrayData()
+        arraydata.set_array('X', X)
+        arraydata.set_array('Y', Y)
+
+        return arraydata

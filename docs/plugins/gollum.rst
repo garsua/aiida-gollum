@@ -103,8 +103,9 @@ and time information::
            "tt_M": 5.999995,
            "tt_m": 0.0,
            "start_of_run": "05-Jun-2018 16:59:41",
+           "start_of_run": "05-Jun-2018 16:59:50",
            "total_time": 8.375386,
-           "warnings": []
+           "warnings": [],
            "errors": []
         }
 
@@ -115,15 +116,17 @@ transmission. All these values are converted to 'float'. The parser
 also distinguishes between spin-unpolarized and -polarized calculations.
 In the former case it gives the values ou_ef, ou_M, ou_m, tu_ef, tu_M and
 tu_m, for the up open channels and transmission and od_ef, od_M, od_m,
-td_ef, td_M and td_m for the down open channels and transmission.
+td_ef, td_M and td_m for the down open channels and transmission,
+respectively.
 
 The 'warnings' list contains program warnings which do not stop the
 execution of Gollum. The 'errors' list contains the last line of the
-output file when the execution stops for errors or external reasons.
+output file when the execution stops for errors or for external reasons.
 
 * **output_array** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>`
 
-Contains the transmission and open channels in an array form.
+Contains the open channels and the transmission in an array form (the energy
+in the x axis and the open channels or transmission in the y axis).
 
 Errors
 ------
