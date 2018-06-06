@@ -52,30 +52,30 @@ to specify tye type of variable and the number of rows and columns)::
 Complex data structures such as blocks with various rows and columns
 are defined by using an appropriate key and Python's multiline string
 constructor. It is necessary to distinguis between numerical blocks
-(**NBlock**)::
+(``NBlock``)::
 
         'NBlock leadp': """
         2 2 -1
         2 2  1 """,
 
-and string blocks (**SBlock**)::
+and string blocks (``SBlock``)::
 
         'SBlock Path_Leads': """
         1 ./Lead_1
         2 ./Lead_2""",
 
-The only block that is defined differently is the **atom** block::
+The only block that is defined differently is the ``atom`` block::
 
         'atom': """
         1 2  2
         0 0 10
         2 2  2 """
 
-The first colum of the **atom** block indicates the lead number or the
+The first colum of the ``atom`` block indicates the lead number or the
 extended molecule (0), the second column the number of principal
 layers in each lead (0 again for the extended molecule) and the third
 column the number of atoms in each lead. From these numbers the plugin
-constructs and writes in the input file the typical **atom** block.
+constructs and writes in the input file the typical ``atom`` block.
 
 Outputs
 -------
@@ -119,8 +119,8 @@ calculations. In the former case it gives the values ``ou_ef``, ``ou_M``,
 transmission and ``od_ef``, ``od_M``, ``od_m``, ``td_ef``, ``td_M`` and
 ``td_m`` for the down open channels and transmission, respectively.
 
-The 'warnings' list contains program warnings which do not stop the
-execution of Gollum. The 'errors' list contains the last line of the
+The ``warnings`` list contains program warnings which do not stop the
+execution of Gollum. The ``errors`` list contains the last line of the
 output file when the execution stops for errors or for external reasons.
 
 * **output_array** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>`
