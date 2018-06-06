@@ -8,9 +8,9 @@
 #######################################
 
 .. figure:: images/AiiDA_transparent_logo.png
-    :width: 200px
+    :width: 220px
     :align: center
-    :height: 44px
+    :height: 48px
 .. figure:: images/gollum_logo.png
     :width: 233px
     :align: center
