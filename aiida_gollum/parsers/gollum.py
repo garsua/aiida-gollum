@@ -43,11 +43,6 @@ class GollumParser(Parser):
         from aiida.orm.data.array.trajectory import TrajectoryData
         import re
 
-        parser_version = 'aiida-0.1.0--gollum-2.0.0'
-        parser_info = {}
-        parser_info['parser_info'] = 'AiiDA Siesta Parser V. {}'.format(parser_version)
-        parser_info['parser_warnings'] = []
-
         result_list = []
 
         # Add errors
@@ -63,8 +58,17 @@ class GollumParser(Parser):
         # Add warnings
         warnings_list = self.get_warnings_from_file(messages_path)
         result_dict["warnings"] = warnings_list
+
+        # Add outuput data
+        output_dict = self.get_output_from_file(output_path)
+        result_dict.update(output_dict)
         
         # Add parser info dictionary
+        parser_info = {}
+        parser_version = 'aiida-0.1.0--gollum-2.0.0'
+        parser_info['parser_info'] =\
+            'AiiDA Siesta Parser V. {}'.format(parser_version)
+        parser_info['parser_warnings'] = []
         parsed_dict = dict(result_dict.items() + parser_info.items())
 
         output_data = ParameterData(dict=parsed_dict)
@@ -134,6 +138,33 @@ class GollumParser(Parser):
         print output_path, messages_path
         return output_path, messages_path
 
+    def get_output_from_file(self,output_path):
+     """
+     Generates a list of variables from the 'aiida.out' file.
+
+     :param output_path: 
+
+     Returns a list of strings.
+     """
+     f=open(output_path)
+     lines=f.read().split('\n')   # There will be a final '' element
+
+     import re
+
+     # Find data
+     output_dict = {}
+     for line in lines:
+          if re.match('^.*Version.*$',line):
+               output_dict['gollum:version'] = line.strip()
+          if re.match('^.*LIBRARY.*$',line):
+               output_dict['ld_library_path'] = line.strip()
+          if re.match('^.*Start of run.*$',line):
+               output_dict['start_of_run'] = ' '.join(line.split()[-2:])
+          if re.match('^.*Elapsed time.*$',line):
+               output_dict['total_time'] = line.split()[-2]
+     
+     return output_dict
+
     def get_errors_from_file(self,messages_path):
      """
      Generates a list of errors from the 'aiida.out' file.
@@ -190,7 +221,7 @@ class GollumParser(Parser):
 
      import re
 
-     # Return with success flag. Find warnings
+     # Find warnings
      linewarning = []
      for line in lines:
           if re.match('^.*in =/.*$',line):
