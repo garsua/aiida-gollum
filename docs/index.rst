@@ -10,11 +10,11 @@
 .. figure:: images/AiiDA_transparent_logo.png
     :width: 250px
     :align: center
-    :height: 100px
+    :height: 80px
 .. figure:: images/gollum_logo.png
     :width: 233px
     :align: center
-    :height: 100px
+    :height: 80px
 
 .. _AiiDA: http://www.aiida.net
 .. _GOLLUM: http://www.physics.lancs.ac.uk/gollum
