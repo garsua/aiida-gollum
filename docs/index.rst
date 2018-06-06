@@ -10,7 +10,7 @@
 .. figure:: images/AiiDA_transparent_logo.png
     :width: 250px
     :align: center
-    :height: 80px
+    :height: 60px
 .. figure:: images/gollum_logo.png
     :width: 233px
     :align: center
