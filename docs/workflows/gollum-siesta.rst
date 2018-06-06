@@ -8,6 +8,8 @@ The **GollumSiestaWorkchain** workflow produces files with the
 transmission and the number of open channels from the electronic
 structure calculated with Siesta.
 
+.. important:: In order for this workflow to work it is necessary to install as well the aiida_siesta plugin
+
 The inputs to the Gollum workchain include the Siesta code, the Gollum
 code, the structures of the leads and the extended molecule, the
 protocol, the number of kpoints in the leads and the extended molecule
