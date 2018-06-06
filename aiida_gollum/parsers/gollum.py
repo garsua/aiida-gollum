@@ -266,8 +266,8 @@ class GollumParser(Parser):
         for line in lines:
             if re.match('^.*Version.*$',line):
                 output_dict['gollum_version'] = line.strip()
-            if re.match('^.*LIBRARY.*$',line):
-                output_dict['ld_library_path'] = line.strip()
+            if re.match('^.*LD_LIBRARY_PATH.*$',line):
+                output_dict['ld_library_path'] = line.split()[2]
             if re.match('^.*Start of run.*$',line):
                 output_dict['start_of_run'] = ' '.join(line.split()[-2:])
             if re.match('^.*Elapsed time.*$',line):

@@ -91,27 +91,35 @@ the run (transmission and open-channels files).
 * **output_parameters** :py:class:`ParameterData <aiida.orm.data.parameter.ParameterData>` 
   (accessed by ``calculation.res``)
 
-A dictionary with metadata, scalar result values, a warnings list, and
-possibly a timing section::
+A dictionary with metadata, scalar result values, errors and warnings lists,
+and time information::
 
         {
            "gollum_version": "Version 2.0 GAMMA (Feb. 2018)",
-           "Tef": 0.003,
-           "Tmax": 0.990,
-           "Tmin": "0.000",
+           "oc_ef": 3.0,
+           "oc_M": 6.0,
+           "oc_m": 0.0,
+           "tt_ef": 2.999997,
+           "tt_M": 5.999995,
+           "tt_m": 0.0,
            "start_of_run": "05-Jun-2018 16:59:41",
-           "total_time": 21.823812,
+           "total_time": 8.375386,
            "warnings": []
+           "errors": []
         }
 
-The scalar quantities to include are specified in a global-variable
-in the parser. Currently they are the transmission at the Fermi level,
-the maximun transmission and the minimum transmission. These are
-all converted to 'float'.
+The data include the number of open channels at the Fermi level (oc_ef),
+the maximum (oc_M) and minimum (oc_m) open channels, the transmission at
+the Fermi level (tt_ef) and the maximum (tt_M) and minimum (tt_m)
+transmission. All these values are converted to 'float'. The parser
+also distinguishes between spin-unpolarized and -polarized calculations.
+In the former case it gives the values ou_ef, ou_M, ou_m, tu_ef, tu_M and
+tu_m, for the up open channels and transmission and od_ef, od_M, od_m,
+td_ef, td_M and td_m for the down open channels and transmission.
 
-The 'warnings' list contains program messages, WARNING, or FATAL, read
-directly from the Gollum output file. These include information about
-each step of the simulation process.
+The 'warnings' list contains program warnings which do not stop the
+execution of Gollum. The 'errors' list contains the last line of the
+output file when the execution stops for errors or external reasons.
 
 * **output_array** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>`
 
