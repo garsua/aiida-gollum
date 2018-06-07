@@ -44,9 +44,9 @@ class GollumParser(Parser):
         # Add errors
         successful = True
         if messages_path is None:
-             errors_list = ['WARNING: No aiida.out file...']
+            errors_list = ['WARNING: No aiida.out file...']
         else:
-             successful, errors_list = self.get_errors_from_file(messages_path)
+            successful, errors_list = self.get_errors_from_file(messages_path)
 
         result_dict = {}
         result_dict["errors"] = errors_list
@@ -102,7 +102,7 @@ class GollumParser(Parser):
         parser_info = {}
         parser_version = 'aiida-0.1.0--gollum-2.0.0'
         parser_info['parser_info'] =\
-            'AiiDA Siesta Parser V. {}'.format(parser_version)
+            'AiiDA Gollum Parser V. {}'.format(parser_version)
         parser_info['parser_warnings'] = []
         parsed_dict = dict(result_dict.items() + parser_info.items())
 
@@ -261,8 +261,8 @@ class GollumParser(Parser):
         # Find warnings
         linewarning = []
         for line in lines:
-              if re.match('^.*in =/.*$',line):
-                   linewarning.append(line)
+            if re.match('^.*in =/.*$',line):
+                linewarning.append(line)
      
         return linewarning
 
