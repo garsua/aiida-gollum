@@ -21,8 +21,8 @@ or ab-initio simulations. In the latter case, it can use the Siesta
 or QuantumEspresso-Wannier90 codes. This workflow presents an
 example of transport calculation with the Siesta code. First, it
 launches a Siesta calculation to simulate the leads, then another
-Siesta calculation for the extended molecule and finally it launches
-a Gollum simulation to calculate the transport properties.
+Siesta calculation for the extended molecule and finally a Gollum
+simulation to calculate the transport properties.
 
 Supported Gollum versions
 -------------------------
