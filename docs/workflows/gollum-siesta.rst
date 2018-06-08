@@ -8,7 +8,7 @@ The **GollumSiestaWorkchain** workflow produces files with the
 transmission and the number of open channels from the electronic
 structure calculated with Siesta.
 
-.. important:: In order for this workflow to work it is also necessary to install the aiida_siesta plugin (https://github.com/albgar/aiida_siesta_plugin)
+.. important:: In order for this workflow to work it is also necessary to install the aiida_siesta plugin (http://aiida-siesta-plugin.readthedocs.io/en/latest/)
 
 The inputs to the Gollum workchain include the Siesta code, the Gollum
 code, the structures of the leads and the extended molecule, the
@@ -108,11 +108,14 @@ Some parameters for the Gollum simulation (tipically the *leadp* and
 Outputs
 -------
 
-* **transmission** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
-
-The transission between electrodes.
-
 * **open_channels** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
 
-The number of open channels of each electrode.
+The number of open channels of the first electrode (we assume at the
+moment that both electrodes are equal). In case of a spin-polarized
+calculation the output distinguishes between spin-up and down channels.
+
+* **transmission** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
+
+The transission between electrodes. In case of a spin-polarized
+calculation the output distinguishes between spin-up and down transmissions.
 
