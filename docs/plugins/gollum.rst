@@ -4,11 +4,11 @@ Standard Gollum plugin
 Description
 -----------
 
-The AiiDA Gollum plugin is an AiiDA extension, writen in Python, which
+The AiiDA Gollum plugin is an AiiDA extension, written in Python, which
 allows to run in a user friendly way highly automated transport simulations
 with the Gollum code. It has two main parts, the input and the output, which
-facilitate the desing, analysis and postprocessing of transport calculations
-within the AiiDA famework.
+facilitate the design, analysis and postprocessing of transport calculations
+within the AiiDA framework.
 
 These docs are for version: *aiida-0.12.0--plugin-0.1.0* of the plugin.
 
@@ -42,7 +42,7 @@ The name of the localfolder that contains the ``Extended_Molecule`` and
 A dictionary with scalar and string variables and blocks, which are the
 basic elements of the Gollum input file. The definition of each parameter
 is simpler than in the Gollum original input file (it is not necessary
-to specify tye type of variable and the number of rows and columns)::
+to specify the type of variable and the number of rows and columns)::
 
         'Mode': 1,
         'Verbose': 0,
@@ -51,7 +51,7 @@ to specify tye type of variable and the number of rows and columns)::
 
 Complex data structures such as blocks with various rows and columns
 are defined by using an appropriate key and Python's multiline string
-constructor. It is necessary to distinguis between numerical blocks
+constructor. It is necessary to distinguish between numerical blocks
 (``NBlock``)::
 
         'NBlock leadp': """
@@ -71,7 +71,7 @@ The only block that is defined differently is the ``atom`` block::
         0 0 10
         2 2  2 """
 
-The first colum of the ``atom`` block indicates the lead number or the
+The first column of the ``atom`` block indicates the lead number or the
 extended molecule (0), the second column the number of principal
 layers in each lead (0 again for the extended molecule) and the third
 column the number of atoms in each lead. From these numbers the plugin
@@ -160,7 +160,7 @@ Additional advanced features
 Additional settings can be specified in the **settings** input, of type
 ParameterData, as explained before.
 
-Some of the options that can be speciied are summarized below. In each
+Some of the options that can be specified are summarized below. In each
 case, after having defined the content of ``settings_dic``, it can
 be used as input of a calculation ``calc`` by doing::
 
@@ -180,7 +180,7 @@ passed as a string in a list, as follows::
         'cmdline': ['-option1', '-option2'],
         }
 
-Note that very few user-level comand-line options (besides those
+Note that very few user-level command-line options (besides those
 already inserted by AiiDA for MPI operation) are currently implemented.
 
 Retrieving more files

@@ -102,7 +102,7 @@ extended molecule
 * **parameters**, class :py:class:`ParameterData
   <aiida.orm.data.parameter.ParameterData>`
 
-Some parameters for the Gollum simulation (tipically the *leadp* and
+Some parameters for the Gollum simulation (typically the *leadp* and
 *atom* blocks).
 
 Outputs
@@ -116,6 +116,6 @@ calculation the output distinguishes between spin-up and down channels.
 
 * **transmission** :py:class:`ArrayData <aiida.orm.data.array.ArrayData>` 
 
-The transission between electrodes. In case of a spin-polarized
+The transmission between electrodes. In case of a spin-polarized
 calculation the output distinguishes between spin-up and down transmissions.
 
