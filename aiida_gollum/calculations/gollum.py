@@ -228,9 +228,9 @@ class GollumCalculation(JobCalculation):
         calcinfo.stdin_name = self._INPUT_FILE_NAME
         calcinfo.stdout_name = self._OUTPUT_FILE_NAME
         calcinfo.messages_name = self._MESSAGES_FILE_NAME
-        calcinfo.tt_name = self._OC_FILE_NAME
-        calcinfo.tu_name = self._OU_FILE_NAME
-        calcinfo.td_name = self._OD_FILE_NAME
+        calcinfo.oc_name = self._OC_FILE_NAME
+        calcinfo.ou_name = self._OU_FILE_NAME
+        calcinfo.od_name = self._OD_FILE_NAME
         calcinfo.tt_name = self._TT_FILE_NAME
         calcinfo.tu_name = self._TU_FILE_NAME
         calcinfo.td_name = self._TD_FILE_NAME
@@ -243,9 +243,9 @@ class GollumCalculation(JobCalculation):
         #codeinfo.stdin_name = self._INPUT_FILE_NAME
         codeinfo.stdout_name = self._OUTPUT_FILE_NAME
         codeinfo.messages_name = self._MESSAGES_FILE_NAME
-        codeinfo.tt_name = self._OC_FILE_NAME
-        codeinfo.tu_name = self._OU_FILE_NAME
-        codeinfo.td_name = self._OD_FILE_NAME
+        codeinfo.oc_name = self._OC_FILE_NAME
+        codeinfo.ou_name = self._OU_FILE_NAME
+        codeinfo.od_name = self._OD_FILE_NAME
         codeinfo.tt_name = self._TT_FILE_NAME
         codeinfo.tu_name = self._TU_FILE_NAME
         codeinfo.td_name = self._TD_FILE_NAME
