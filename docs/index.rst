@@ -31,6 +31,11 @@ The aiida-gollum python package interfaces the GOLLUM transport code
 itself and basic workflows. It is distributed under the MIT license
 and available from (https://github.com/garsua/aiida-gollum/).
 
+.. figure:: images/funding.png
+    :width: 220px
+    :align: center
+    :height: 48px
+
 Acknowledgments:
 ----------------
 
