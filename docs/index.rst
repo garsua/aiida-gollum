@@ -35,12 +35,12 @@ Acknowledgments:
 ----------------
 
 The Gollum input plugin, parser, workflow and examples were developed
-by Victor M. Garcia-Suarez.
+by Víctor Manuel García-Suárez.
 
 We acknowledge support from the Spanish MINECO (project
 FIS2015-63918-R), the Spanish Ministerio de Ciencia, Innovación y Universidades
-(project PGC2018-094783-B-I00) and the EU Centre of Excellence “MaX –
-Materials Design at the Exascale” (http://www.max-centre.eu).
+(project PGC2018-094783-B-I00) and the EU Centre of Excellence "MaX -
+Materials Design at the Exascale" (http://www.max-centre.eu).
 (Horizon 2020 EINFRA-5, Grant No. 676598). We also thank the AiiDA
 team for their help.
 

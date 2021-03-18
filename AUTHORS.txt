@@ -1,5 +1,5 @@
-The Gollum input plugin, parser and workflow were developed by Victor
-M. Garcia-Suarez.
+The Gollum input plugin, parser and workflow were developed by Víctor
+Manuel García-Suárez.
 
 We gratefully acknowledge the help and support of the AiiDA team in
 EPFL.

@@ -4,7 +4,7 @@ A plugin with the [Gollum](http://www.physics.lancs.ac.uk/gollum/) transport
 code interface to the [AiiDA](http://www.aiida.net/) system.
 
 The Gollum input plugin, parser, workflow and examples were developed
-by Victor M. Garcia-Suarez.
+by Víctor Manuel García-Suárez.
 
 This version of the plugin only works with the aiida-0.12.0 version.
 
