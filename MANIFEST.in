@@ -1,0 +1,2 @@
+include *.txt *.yml *.sh *.rst *.py *.json *.psf  *.cif
+recursive-include aiida_gollum/examples/ *.txt *.py *.psf  *.cif *.rst

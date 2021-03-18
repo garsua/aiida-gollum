@@ -1,0 +1,16 @@
+# name: nspin
+# type: scalar
+   2
+# name: FermiE
+# type: scalar
+   0
+# name: kpoints_Lead
+# type: matrix
+# rows:    1
+# columns: 3
+ 0.0000000000E+00   0.0000000000E+00   1.0000000000E+00
+# name: HSL
+# type: matrix
+# rows:   1
+# columns:   15
+   1     1     1   1.0   0.0  -1.0   0.0  1.0  0.0  0.0  0.0  -2.0  0.0  -2.0  0.0

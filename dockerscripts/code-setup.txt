@@ -1,0 +1,6 @@
+gollum
+GOLLUM code built in the Docker image
+False
+gollum.gollum
+develop
+/usr/local/bin/run_gollum.sh
