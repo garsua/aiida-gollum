@@ -45,9 +45,8 @@ Materials Design at the Exascale" (http://www.max-centre.eu).
 team for their help.
 
 .. figure:: images/funding.png
-    :width: 220px
     :align: center
-    :height: 48px
+    :height: 50px
 
 Contents:
 ---------
