@@ -46,6 +46,6 @@ Horizon 2020 EINFRA-5, grant No. 676598). We also thank the AiiDA team for
 their help.
 
 <p align="center">
-<img src="docs/images/funding.png" width="500">
+<img src="docs/images/funding.png" width="700">
 </p>
 
