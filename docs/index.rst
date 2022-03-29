@@ -46,7 +46,7 @@ team for their help.
 
 .. figure:: images/funding.png
     :align: center
-    :height: 80px
+    :height: 100px
 
 Contents:
 ---------
