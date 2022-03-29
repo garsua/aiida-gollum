@@ -45,4 +45,4 @@ the Spanish Ministerio de Ciencia, Innovación y Universidades
 Horizon 2020 EINFRA-5, grant No. 676598). We also thank the AiiDA team for
 their help.
 
-![Funding](docs/images/funding.png)
+![Funding](docs/images/funding.png|width=80)
